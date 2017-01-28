@@ -7,19 +7,39 @@ public class PlayerRoster {
   int [] playerRatings = new int[NUM_PLAYERS];
   int jerseyNumber = -100;
   int playerRating = -100;
+  String userInput = "";
   int i = 0;
+
+  Scanner scnr = new Scanner(System.in);
 
   public static void main(String[] args) {
     PlayerRoster Roster = new PlayerRoster();
-    Roster.gatherUserInput();
-    Roster.showRoster(); 
+    //Roster.gatherUserInput();
+    //Roster.showRoster();
+    Roster.showMenu(); 
   }
 
+  public void showMenu() {
+    System.out.println("MENU");
+    System.out.println("u - Update player rating");
+    System.out.println("a - Output players above a rating");
+    System.out.println("r - Replace player");
+    System.out.println("o - Output roster");
+    System.out.println("q - Quit\n");
+    System.out.println("Choose an option:");
+
+    while(!userInput.equals("u") | !userInput.equals("a") | !userInput.equals("r") | !userInput.equals("o") | !userInput.equals("q") ) {
+	while(!scnr.hasNext()) {
+	  System.out.println("Options are: u/a/r/o/q");
+	  scnr.next();
+	}
+	userInput = scnr.next();
+    } 
+
+  }
 
    public void gatherUserInput() {
 
-      Scanner scnr = new Scanner(System.in);
-      
       while(i < NUM_PLAYERS) {
         
         //PlayerJersey Input

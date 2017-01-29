@@ -30,6 +30,7 @@ public class PlayerRoster {
   public void handleMenuResponse() {
     switch(userInput) {
       case "u": userInput = ""; 
+		System.out.println("I also like this input");
 		getSinglePlayerInput();
 		break;
      
@@ -67,7 +68,8 @@ public class PlayerRoster {
     //keep prompting while answer isn't valid:
     while(!userInput.equals("u") && !userInput.equals("a") && !userInput.equals("r") && !userInput.equals("o") && !userInput.equals("q") ) {
         userInput = scnr.next();
-    } 
+    }
+    System.out.println("I like this input"); 
   }
 
   public void getRosterInput() {
@@ -112,7 +114,7 @@ public class PlayerRoster {
     jerseyNumbers[playerNumber-1] = getPlayerJerseyNumber();
 
     System.out.println("Enter a new rating for player:");
-    playerRatings[playernumber-1] = getPlayerRating();
+    playerRatings[playerNumber-1] = getPlayerRating();
   }
 
 

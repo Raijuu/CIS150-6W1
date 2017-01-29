@@ -30,6 +30,7 @@ public class PlayerRoster {
   public void handleMenuResponse() {
     switch(userInput) {
       case "u": userInput = ""; 
+		System.out.println("I also like this input");
 		getSinglePlayerInput();
 		break;
      
@@ -67,7 +68,8 @@ public class PlayerRoster {
     //keep prompting while answer isn't valid:
     while(!userInput.equals("u") && !userInput.equals("a") && !userInput.equals("r") && !userInput.equals("o") && !userInput.equals("q") ) {
         userInput = scnr.next();
-    } 
+    }
+    System.out.println("I like this input"); 
   }
 
   public void getRosterInput() {
@@ -117,6 +119,7 @@ public class PlayerRoster {
 
 
   public int getPlayerJerseyNumber() {
+    // TODO: Requirements did not specify jersey #'s need be unique, get user feedback. 
 
     // keep prompting if number is out of range:
     while(jerseyNumber < 0 | jerseyNumber > 99) {

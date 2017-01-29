@@ -10,6 +10,7 @@ public class PlayerRoster {
   int playerNumber = 0;
   String userInput = "";
   int i = 0;
+  int ratingsInquiry = 0;
   boolean userActive = true;
 
   Scanner scnr = new Scanner(System.in);
@@ -35,7 +36,8 @@ public class PlayerRoster {
 		break;
      
       case "a": userInput = "";
-        	break;
+        	outputPlayersAboveARating();
+		break;
 
       case "r": userInput = "";
 		//showRoster();
@@ -101,55 +103,36 @@ public class PlayerRoster {
   public void updatePlayerRating() {
     jerseyNumber = -1;
     playerRating = -0;
- 
     // TODO: clarify with customer, do jerseys need to be unique? Assuming yes for now.
     System.out.println("Enter a jersey number:");
     
     jerseyNumber = getPlayerJerseyNumber();
     
-    for(i = 0; i < NUM_PLAYERS; i++) { 
+    for(i = 0; i < NUM_PLAYERS; i++) {
+      //System.out.println("On i: "+i); 
       if(jerseyNumber == jerseyNumbers[i]) {
         System.out.println("Enter a new rating for players:");
         playerRatings[i] = getPlayerRating();
-        System.out.println("Player Rating: "+playerRating+" Updated for "+jerseyNumber+" Match");
+        System.out.println("Player rating: "+playerRating+" updated for jersey number:"+jerseyNumber);
         break;
       }  
-      System.out.println("jersey "+jerseyNumber+" not found for player "+NUM_PLAYER);
+      //System.out.println("jersey "+jerseyNumber+" not found for player "+i);
     }
+    System.out.println("Jersey "+jerseyNumber+" not found");
   }
 
   public void outputPlayersAboveARating() {
-    
-  }
-
-  public void getSinglePlayerInput() { 
-    //regather input if it is out of range
-    int jNumber = 0;
-    int pRating = 0;
-    jerseyNumber = -1;
-    playerRating = 0;
-    playerNumber = 0;
-
-    // TODO: says to prompt user for player jersey here but I don't know if jerseys need be unique? 
-    showRoster();
-    System.out.println("\n Which player do we update?"); 
-    
-    while(playerNumber < 1 | playerNumber > NUM_PLAYERS) { 
-      while(!scnr.hasNextInt()) {
-        System.out.println("please enter a number between 1 and "+NUM_PLAYERS);
-        scnr.next();
+    System.out.println("Enter a rating:");
+    ratingsInquiry = getPlayerRating(); 
+    System.out.println("ABOVE "+ratingsInquiry);
+    for(i = 0; i < NUM_PLAYERS; i++) {
+      if(ratingsInquiry >= playerRatings[i]) {
+        //System.out.println("Player "+(i+1)+" -- Jersey number: "+jerseyNumbers[i]", Rating: "+playerRatings[i]);
+        printPlayerInfo(i);
       }
-      playerNumber = scnr.nextInt();
-      //System.out.println("please enter a number between 1 and "+NUM_PLAYERS);
-    }
+    }       
 
-    System.out.println("Enter a jersey number:");
-    jerseyNumbers[playerNumber-1] = getPlayerJerseyNumber();
-
-    System.out.println("Enter a new rating for player:");
-    playerRatings[playerNumber-1] = getPlayerRating();
   }
-
 
   public int getPlayerJerseyNumber() {
     // TODO: Requirements did not specify jersey #'s need be unique, get user feedback. 
@@ -168,7 +151,7 @@ public class PlayerRoster {
   }
 
   public int getPlayerRating() {
-   
+    playerRating=0;  
     //keep prompting if number is out of range:
     while (playerRating < 1 | playerRating > 9) {
       // sanitize input:
@@ -186,10 +169,16 @@ public class PlayerRoster {
   public void showRoster() {
     //Do the Roster Output
     for(i = 0; i < NUM_PLAYERS; i++) {
-      System.out.println("Player "+(i+1)+" -- Jersey number: "+jerseyNumbers[i]+", Rating: "+playerRatings[i]);
+      //System.out.println("Player "+(i+1)+" -- Jersey number: "+jerseyNumbers[i]+", Rating: "+playerRatings[i]);
+      printPlayerInfo(i);
     }
 
     return;
   }
+
+  public void printPlayerInfo(int indexID) {
+    System.out.println("Player "+(indexID+1)+" -- Jersey number: "+jerseyNumbers[indexID]+", Rating: "+playerRatings[indexID]);
+  }
+
 
 }

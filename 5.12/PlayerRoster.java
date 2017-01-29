@@ -5,9 +5,9 @@ public class PlayerRoster {
   final int NUM_PLAYERS = 5;
   int [] jerseyNumbers = new int[NUM_PLAYERS];
   int [] playerRatings = new int[NUM_PLAYERS];
-  int jerseyNumber = -100;
-  int playerRating = -100;
-  int playerNumber = 100;
+  int jerseyNumber = -1;
+  int playerRating = 0;
+  int playerNumber = 0;
   String userInput = "";
   int i = 0;
   boolean userActive = true;
@@ -30,8 +30,8 @@ public class PlayerRoster {
   public void handleMenuResponse() {
     switch(userInput) {
       case "u": userInput = ""; 
-		System.out.println("I also like this input");
-		getSinglePlayerInput();
+		//getSinglePlayerInput();
+		updatePlayerRating();
 		break;
      
       case "a": userInput = "";
@@ -53,7 +53,6 @@ public class PlayerRoster {
 
 
   public void printMenu() {
-    System.out.println("\n\n**********");
     System.out.println("MENU");
     System.out.println("u - Update player rating");
     System.out.println("a - Output players above a rating");
@@ -63,13 +62,18 @@ public class PlayerRoster {
     System.out.println("Choose an option:");
 
   }
+  
+  public void clearScanner() {
+    while(scnr.hasNext()) {
+      scnr.next();
+    }
+  }
 
   public void getMenuResponse() {
     //keep prompting while answer isn't valid:
     while(!userInput.equals("u") && !userInput.equals("a") && !userInput.equals("r") && !userInput.equals("o") && !userInput.equals("q") ) {
         userInput = scnr.next();
     }
-    System.out.println("I like this input"); 
   }
 
   public void getRosterInput() {
@@ -87,27 +91,56 @@ public class PlayerRoster {
       //end loop and regroup!
       i++;
       playerNumber++;
-      jerseyNumber = -100;
-      playerRating = -100;
+      jerseyNumber = -1;
+      playerRating = 0;
       System.out.println("");
     }
     return;
+  }
+
+  public void updatePlayerRating() {
+    jerseyNumber = -1;
+    playerRating = -0;
+ 
+    // TODO: clarify with customer, do jerseys need to be unique? Assuming yes for now.
+    System.out.println("Enter a jersey number:");
+    
+    jerseyNumber = getPlayerJerseyNumber();
+    
+    for(i = 0; i < NUM_PLAYERS; i++) { 
+      if(jerseyNumber == jerseyNumbers[i]) {
+        System.out.println("Enter a new rating for players:");
+        playerRatings[i] = getPlayerRating();
+        System.out.println("Player Rating: "+playerRating+" Updated for "+jerseyNumber+" Match");
+        break;
+      }  
+      System.out.println("jersey "+jerseyNumber+" not found for player "+NUM_PLAYERS);
+    }
+  }
+
+  public void outputPlayersAboveARating() {
+    
   }
 
   public void getSinglePlayerInput() { 
     //regather input if it is out of range
     int jNumber = 0;
     int pRating = 0;
-    jerseyNumber = -100;
-    playerRating = -100;
-    playerNumber = -100;
+    jerseyNumber = -1;
+    playerRating = 0;
+    playerNumber = 0;
 
+    // TODO: says to prompt user for player jersey here but I don't know if jerseys need be unique? 
+    showRoster();
+    System.out.println("\n Which player do we update?"); 
+    
     while(playerNumber < 1 | playerNumber > NUM_PLAYERS) { 
       while(!scnr.hasNextInt()) {
         System.out.println("please enter a number between 1 and "+NUM_PLAYERS);
         scnr.next();
       }
       playerNumber = scnr.nextInt();
+      //System.out.println("please enter a number between 1 and "+NUM_PLAYERS);
     }
 
     System.out.println("Enter a jersey number:");
@@ -129,6 +162,7 @@ public class PlayerRoster {
         scnr.next();
       }
       jerseyNumber = scnr.nextInt();
+      //System.out.println("Please enter a number between 0-99");
     }
     return jerseyNumber;
   }
@@ -143,6 +177,7 @@ public class PlayerRoster {
         scnr.next();
       }
       playerRating = scnr.nextInt();
+      //System.out.println("Please enter a number between 1-9");
     }
     return playerRating;
   }
@@ -150,11 +185,9 @@ public class PlayerRoster {
 
   public void showRoster() {
     //Do the Roster Output
-    System.out.println("+-----------------------------------------+");
     for(i = 0; i < NUM_PLAYERS; i++) {
-      System.out.println("| Player "+(i+1)+" -- Jersey number: "+jerseyNumbers[i]+", Rating: "+playerRatings[i]+ " |");
+      System.out.println("Player "+(i+1)+" -- Jersey number: "+jerseyNumbers[i]+", Rating: "+playerRatings[i]);
     }
-    System.out.println("+-----------------------------------------+");
 
     return;
   }

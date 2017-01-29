@@ -9,17 +9,46 @@ public class PlayerRoster {
   int playerRating = -100;
   String userInput = "";
   int i = 0;
+  boolean userActive = true;
 
   Scanner scnr = new Scanner(System.in);
 
   public static void main(String[] args) {
     PlayerRoster Roster = new PlayerRoster();
+    
     //Roster.gatherUserInput();
-    //Roster.showRoster();
-    Roster.showMenu(); 
+    
+    while(Roster.userActive) {
+      Roster.printMenu();
+      Roster.getMenuResponse(); 
+      Roster.handleMenuResponse();
+    }
   }
 
-  public void showMenu() {
+  public void handleMenuResponse() {
+    switch(userInput) {
+      case "u": userInput = ""; 
+		break;
+     
+      case "a": userInput = "";
+        	break;
+
+      case "r": userInput = "";
+		//showRoster();
+        	break;
+
+      case "o": userInput = "";
+        	showRoster();
+		break;
+
+      case "q": userInput = "";
+		userActive = false;
+        	break;
+    }
+  }
+
+
+  public void printMenu() {
     System.out.println("MENU");
     System.out.println("u - Update player rating");
     System.out.println("a - Output players above a rating");
@@ -28,19 +57,18 @@ public class PlayerRoster {
     System.out.println("q - Quit\n");
     System.out.println("Choose an option:");
 
-    //keep prompting while answer isn't valid:
-    while(!userInput.equals("u") | !userInput.equals("a") | !userInput.equals("r") | !userInput.equals("o") | !userInput.equals("q") ) {
-	while(!scnr.hasNext()) {
-	  System.out.println("Options are: u/a/r/o/q");
-	  userInput = scnr.next();
-	}
-    } 
+    }
 
+  public void getMenuResponse() {
+    //keep prompting while answer isn't valid:
+    while(!userInput.equals("u") && !userInput.equals("a") && !userInput.equals("r") && !userInput.equals("o") && !userInput.equals("q") ) {
+        userInput = scnr.next();
+    } 
   }
 
-   public void gatherUserInput() {
-
-      while(i < NUM_PLAYERS) {
+   public void getRosterInput() {
+     i = 0;
+     while(i < NUM_PLAYERS) {
         
         //PlayerJersey Input
         System.out.println("Enter player "+(i+1)+"'s jersey number:");
@@ -82,6 +110,10 @@ public class PlayerRoster {
 	System.out.println("");
       }
       return;
+   }
+
+   public int getPlayerJerseyNumber(int PlayerNumber) {
+
    }
 
    public void showRoster() {

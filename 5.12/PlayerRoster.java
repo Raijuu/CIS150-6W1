@@ -31,7 +31,6 @@ public class PlayerRoster {
   public void handleMenuResponse() {
     switch(userInput) {
       case "u": userInput = ""; 
-		//getSinglePlayerInput();
 		updatePlayerRating();
 		break;
      
@@ -40,7 +39,7 @@ public class PlayerRoster {
 		break;
 
       case "r": userInput = "";
-		//showRoster();
+		replacePlayer();
         	break;
 
       case "o": userInput = "";
@@ -103,22 +102,24 @@ public class PlayerRoster {
   public void updatePlayerRating() {
     jerseyNumber = -1;
     playerRating = -0;
+    boolean noMatch = true;
     // TODO: clarify with customer, do jerseys need to be unique? Assuming yes for now.
-    System.out.println("Enter a jersey number:");
-    
+    System.out.println("Enter a jersey number:");   
     jerseyNumber = getPlayerJerseyNumber();
     
     for(i = 0; i < NUM_PLAYERS; i++) {
-      //System.out.println("On i: "+i); 
+      
       if(jerseyNumber == jerseyNumbers[i]) {
         System.out.println("Enter a new rating for players:");
         playerRatings[i] = getPlayerRating();
         System.out.println("Player rating: "+playerRating+" updated for jersey number:"+jerseyNumber);
+        noMatch = false;
         break;
       }  
-      //System.out.println("jersey "+jerseyNumber+" not found for player "+i);
     }
-    System.out.println("Jersey "+jerseyNumber+" not found");
+    if(noMatch) {
+      System.out.println("Jersey "+jerseyNumber+" not found, try using Output roster to verify");
+    }
   }
 
   public void outputPlayersAboveARating() {
@@ -134,18 +135,28 @@ public class PlayerRoster {
 
   }
 
-  public replacePlayer() {
+  public void replacePlayer() {
+    boolean noMatch = true;
+    jerseyNumber = -1;
+    playerRating = -0;
+    int jnumber = -1;
     System.out.println("Enter a jersey number:");
-    jerseyNumber = getPlayerJerseyNumber();   
+    jnumber = getPlayerJerseyNumber();   
     for(i = 0; i < NUM_PLAYERS; i++) {
-      if(jerseyNumber == jerseyNumbers[i]) {
+      if(jnumber == jerseyNumbers[i]) {
+        jerseyNumber = -1;
         System.out.println("Enter a new jersey number:");
         jerseyNumbers[i] = getPlayerJerseyNumber();
         System.out.println("Enter a rating for the new player: ");
         playerRatings[i] = getPlayerRating();
+	noMatch = false;
+        break;
       }
     }
-}
+    if(noMatch) {
+      System.out.println("No matching jersey number, try using Output roster to verify.");
+    }
+  }
 
 
   public int getPlayerJerseyNumber() {

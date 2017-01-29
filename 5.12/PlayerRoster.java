@@ -15,8 +15,9 @@ public class PlayerRoster {
 
   public static void main(String[] args) {
     PlayerRoster Roster = new PlayerRoster();
+    System.out.println("\f");
     
-    //Roster.gatherUserInput();
+    Roster.getRosterInput();
     
     while(Roster.userActive) {
       Roster.printMenu();
@@ -49,6 +50,7 @@ public class PlayerRoster {
 
 
   public void printMenu() {
+    System.out.println("\n\n**********");
     System.out.println("MENU");
     System.out.println("u - Update player rating");
     System.out.println("a - Output players above a rating");
@@ -70,38 +72,29 @@ public class PlayerRoster {
      i = 0;
      while(i < NUM_PLAYERS) {
         
-        //PlayerJersey Input
-        System.out.println("Enter player "+(i+1)+"'s jersey number:");
-	
-	// keep prompting if number is out of range:
-	while(jerseyNumber < 0 | jerseyNumber > 99) {
-	  // sanitize input:
-	  while(!scnr.hasNextInt()) {
-	    System.out.println("Please enter a number between 0-99 "); 
-	    scnr.next();
-	  }
-            jerseyNumber = scnr.nextInt();
-	}
-        	
-        //save value to team collection;
+        jerseyNumbers[i] = getPlayerJerseyNumber(i);
+
+	//save value to team collection;
         // TODO: Requirements did not specify jersey #'s need be unique, get user feedback. 
-	jerseyNumbers[i] = jerseyNumber; 
+	//jerseyNumbers[i] = jerseyNumber; 
 
         //PlayerRating Input
-        System.out.println("Enter player "+(i+1)+"'s rating:");
+        //System.out.println("Enter player "+(i+1)+"'s rating:");
         
 	//keep prompting if number is out of range:
-	while (playerRating < 1 | playerRating > 9) {
+	//while (playerRating < 1 | playerRating > 9) {
 	  // sanitize input:
-	  while(!scnr.hasNextInt()) {
-	    System.out.println("Please enter a number between 1-9");
-	    scnr.next();
-	  }
-	  playerRating = scnr.nextInt();
-	}
-		
+	 // while(!scnr.hasNextInt()) {
+	 //   System.out.println("Please enter a number between 1-9");
+	 //   scnr.next();
+	 // }
+	 // playerRating = scnr.nextInt();
+	//}
+	
+	playerRatings[i] = getPlayerRating(i);
+	
 	//save value to team collection: 
-        playerRatings[i] = playerRating;
+        //playerRatings[i] = playerRating;
 	
 	//end loop and regroup!
 	i++;
@@ -112,16 +105,48 @@ public class PlayerRoster {
       return;
    }
 
-   public int getPlayerJerseyNumber(int PlayerNumber) {
+   public int getPlayerJerseyNumber(int playerNumber) {
+	playerNumber++;
+        //PlayerJersey Input
+        System.out.println("Enter player "+playerNumber+"'s jersey number:");
 
+        // keep prompting if number is out of range:
+        while(jerseyNumber < 0 | jerseyNumber > 99) {
+          // sanitize input:
+          while(!scnr.hasNextInt()) {
+            System.out.println("Please enter a number between 0-99 ");
+            scnr.next();
+          }
+            jerseyNumber = scnr.nextInt();
+        }
+     return jerseyNumber;
    }
+
+   public int getPlayerRating(int playerRating) {
+   
+     //PlayerRating Input
+     System.out.println("Enter player "+(i+1)+"'s rating:");
+
+     //keep prompting if number is out of range:
+     while (playerRating < 1 | playerRating > 9) {
+       // sanitize input:
+       while(!scnr.hasNextInt()) {
+         System.out.println("Please enter a number between 1-9");
+         scnr.next();
+       }
+       playerRating = scnr.nextInt();
+     }
+     return playerRating;
+   }
+
 
    public void showRoster() {
       //Do the Roster Output
+      System.out.println("+-----------------------------------------+");
       for(i = 0; i < NUM_PLAYERS; i++) {
-	System.out.println("Player "+(i+1)+" -- Jersey number: "+jerseyNumbers[i]+", Rating: "+playerRatings[i]);
+	System.out.println("| Player "+(i+1)+" -- Jersey number: "+jerseyNumbers[i]+", Rating: "+playerRatings[i]+ " |");
       }
-
+      System.out.println("+-----------------------------------------+");
 
       return;
    }

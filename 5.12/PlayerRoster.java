@@ -19,13 +19,30 @@ public class PlayerRoster {
   public static void main(String[] args) {
     PlayerRoster Roster = new PlayerRoster();
     
+    //Stage1
     Roster.getRosterInput();
-    
-    while(Roster.userActive) {
-      Roster.printMenu();
-      Roster.getMenuResponse(); 
-      Roster.handleMenuResponse();
-    }
+    Roster.showRoster();
+
+    //Stage2
+    Roster.getRosterInput();
+    Roster.showRoster();
+
+    //Stage3
+    Roster.getRosterInput();
+    Roster.showRoster();
+
+    Roster.printMenu();
+    Roster.getMenuResponse();
+    Roster.handleMenuResponse();
+
+    //Stage4
+    Roster.getRosterInput();
+    Roster.showRoster();
+
+    Roster.printMenu();
+    Roster.getMenuResponse();
+    Roster.handleMenuResponse();
+
   }
 
   // COLLECT INITIAL DATA:
@@ -196,6 +213,7 @@ public class PlayerRoster {
 
   public void showRoster() {
     //Do the Roster Output
+    System.out.println("ROSTER");
     for(i = 0; i < NUM_PLAYERS; i++) {
       //System.out.println("Player "+(i+1)+" -- Jersey number: "+jerseyNumbers[i]+", Rating: "+playerRatings[i]);
       printPlayerInfo(i);

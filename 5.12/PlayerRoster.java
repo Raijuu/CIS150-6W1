@@ -1,10 +1,11 @@
 import java.util.Scanner;
 
 public class PlayerRoster {
-  //global variables;
-  final int NUM_PLAYERS = 5;
-  int [] jerseyNumbers = new int[NUM_PLAYERS];
-  int [] playerRatings = new int[NUM_PLAYERS];
+  //Initialize variables;
+  final int NUM_PLAYERS = 5;  // Total Number of players
+  int [] jerseyNumbers = new int[NUM_PLAYERS];  // Collection of Jersey Numbers
+  int [] playerRatings = new int[NUM_PLAYERS];  // Collection of player Ratings
+  
   int jerseyNumber = -1;
   int playerRating = 0;
   int playerNumber = 0;
@@ -17,7 +18,6 @@ public class PlayerRoster {
 
   public static void main(String[] args) {
     PlayerRoster Roster = new PlayerRoster();
-    System.out.println("\f");
     
     Roster.getRosterInput();
     
@@ -25,6 +25,48 @@ public class PlayerRoster {
       Roster.printMenu();
       Roster.getMenuResponse(); 
       Roster.handleMenuResponse();
+    }
+  }
+
+  // COLLECT INITIAL DATA:
+  public void getRosterInput() {
+    i = 0;
+    playerNumber=i+1;
+
+    while(i < NUM_PLAYERS) { 
+      
+      System.out.println("Enter player "+playerNumber+"'s jersey number:");
+      jerseyNumbers[i] = getPlayerJerseyNumber();
+      
+      System.out.println("Enter player "+playerNumber+"'s rating:");
+      playerRatings[i] = getPlayerRating();
+  
+      //end loop and regroup!
+      i++;
+      playerNumber++;
+      jerseyNumber = -1;
+      playerRating = 0;
+      System.out.println("");
+    }
+    return;
+  }
+
+  // PRIMARY MENU LOOP:
+  public void printMenu() {
+    System.out.println("MENU");
+    System.out.println("u - Update player rating");
+    System.out.println("a - Output players above a rating");
+    System.out.println("r - Replace player");
+    System.out.println("o - Output roster");
+    System.out.println("q - Quit\n");
+    System.out.println("Choose an option:");
+
+  }
+
+  public void getMenuResponse() {
+    //keep prompting while answer isn't valid:
+    while(!userInput.equals("u") && !userInput.equals("a") && !userInput.equals("r") && !userInput.equals("o") && !userInput.equals("q") ) {
+        userInput = scnr.next();
     }
   }
 
@@ -52,17 +94,39 @@ public class PlayerRoster {
     }
   }
 
+  // HELPER FUNCTIONS:
 
-  public void printMenu() {
-    System.out.println("MENU");
-    System.out.println("u - Update player rating");
-    System.out.println("a - Output players above a rating");
-    System.out.println("r - Replace player");
-    System.out.println("o - Output roster");
-    System.out.println("q - Quit\n");
-    System.out.println("Choose an option:");
+  public int getPlayerJerseyNumber() {
+    // TODO: Requirements did not specify jersey #'s need be unique, get user feedback. 
 
+    // keep prompting if number is out of range:
+    while(jerseyNumber < 0 | jerseyNumber > 99) {
+      // sanitize input:
+      while(!scnr.hasNextInt()) {
+        System.out.println("Please enter a number between 0-99 ");
+        scnr.next();
+      }
+      jerseyNumber = scnr.nextInt();
+      //System.out.println("Please enter a number between 0-99");
+    }
+    return jerseyNumber;
   }
+
+  public int getPlayerRating() {
+    playerRating=0;  
+    //keep prompting if number is out of range:
+    while (playerRating < 1 | playerRating > 9) {
+      // sanitize input:
+      while(!scnr.hasNextInt()) {
+        System.out.println("Please enter a number between 1-9");
+        scnr.next();
+      }
+      playerRating = scnr.nextInt();
+      //System.out.println("Please enter a number between 1-9");
+    }
+    return playerRating;
+  }
+
   
   public void clearScanner() {
     while(scnr.hasNext()) {
@@ -70,34 +134,6 @@ public class PlayerRoster {
     }
   }
 
-  public void getMenuResponse() {
-    //keep prompting while answer isn't valid:
-    while(!userInput.equals("u") && !userInput.equals("a") && !userInput.equals("r") && !userInput.equals("o") && !userInput.equals("q") ) {
-        userInput = scnr.next();
-    }
-  }
-
-  public void getRosterInput() {
-    i = 0;
-    playerNumber=i+1;
-
-    while(i < NUM_PLAYERS) { 
-      
-      System.out.println("Enter player "+playerNumber+"'s jersey number:");
-      jerseyNumbers[i] = getPlayerJerseyNumber();
-      
-      System.out.println("Enter player "+playerNumber+"'s rating:");
-      playerRatings[i] = getPlayerRating();
-	
-      //end loop and regroup!
-      i++;
-      playerNumber++;
-      jerseyNumber = -1;
-      playerRating = 0;
-      System.out.println("");
-    }
-    return;
-  }
 
   public void updatePlayerRating() {
     jerseyNumber = -1;
@@ -157,39 +193,6 @@ public class PlayerRoster {
       System.out.println("No matching jersey number, try using Output roster to verify.");
     }
   }
-
-
-  public int getPlayerJerseyNumber() {
-    // TODO: Requirements did not specify jersey #'s need be unique, get user feedback. 
-
-    // keep prompting if number is out of range:
-    while(jerseyNumber < 0 | jerseyNumber > 99) {
-      // sanitize input:
-      while(!scnr.hasNextInt()) {
-        System.out.println("Please enter a number between 0-99 ");
-        scnr.next();
-      }
-      jerseyNumber = scnr.nextInt();
-      //System.out.println("Please enter a number between 0-99");
-    }
-    return jerseyNumber;
-  }
-
-  public int getPlayerRating() {
-    playerRating=0;  
-    //keep prompting if number is out of range:
-    while (playerRating < 1 | playerRating > 9) {
-      // sanitize input:
-      while(!scnr.hasNextInt()) {
-        System.out.println("Please enter a number between 1-9");
-        scnr.next();
-      }
-      playerRating = scnr.nextInt();
-      //System.out.println("Please enter a number between 1-9");
-    }
-    return playerRating;
-  }
-
 
   public void showRoster() {
     //Do the Roster Output

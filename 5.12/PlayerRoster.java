@@ -134,6 +134,20 @@ public class PlayerRoster {
 
   }
 
+  public replacePlayer() {
+    System.out.println("Enter a jersey number:");
+    jerseyNumber = getPlayerJerseyNumber();   
+    for(i = 0; i < NUM_PLAYERS; i++) {
+      if(jerseyNumber == jerseyNumbers[i]) {
+        System.out.println("Enter a new jersey number:");
+        jerseyNumbers[i] = getPlayerJerseyNumber();
+        System.out.println("Enter a rating for the new player: ");
+        playerRatings[i] = getPlayerRating();
+      }
+    }
+}
+
+
   public int getPlayerJerseyNumber() {
     // TODO: Requirements did not specify jersey #'s need be unique, get user feedback. 
 

@@ -126,13 +126,18 @@ public class PlayerRoster {
     ratingsInquiry = getPlayerRating(); 
     System.out.println("ABOVE "+ratingsInquiry);
     for(i = 0; i < NUM_PLAYERS; i++) {
-      if(ratingsInquiry >= playerRatings[i]) {
+      if(ratingsInquiry <= playerRatings[i]) {
         //System.out.println("Player "+(i+1)+" -- Jersey number: "+jerseyNumbers[i]", Rating: "+playerRatings[i]);
         printPlayerInfo(i);
       }
     }       
 
   }
+
+  public replacePlayer() {
+  
+  }
+
 
   public int getPlayerJerseyNumber() {
     // TODO: Requirements did not specify jersey #'s need be unique, get user feedback. 
